@@ -1,0 +1,35 @@
+*{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+    }
+body{
+    scroll-behavior: smooth;
+}
+
+.home-container{
+    background: url(../images/delicious-spanish-rice-paella-pan-white-background-with-copy-space.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+} 
+.main-text{
+    font-size: 100px;
+} 
+.home-container-main{
+    background :linear-gradient(to bottom right, #dcdcdd, rgb(230, 229, 229));
+}
+
+   .drop-in-2 {
+    animation: drop-in 1200ms ease 500ms backwards;
+   }
+   
+   @keyframes drop-in {
+    from {
+     opacity: 0;
+     transform: translateY(-100px);
+    }
+    to {
+     opacity: 1;
+     transform: translate(0px);
+    }
+   }
+   

@@ -1,0 +1,36 @@
+*{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+    }
+    body{
+        scroll-behavior: smooth;
+    }
+    
+    .login-container{
+        background :linear-gradient(to bottom right, #dcdcdd, rgb(230, 229, 229));
+    }
+    .sub-login{
+        background-image: url(../images//top-view-salad-with-tomatoes-fried-egg-with-blank-notepad.jpg);
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    .sub-login-container{
+        max-width: 450px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+   .drop-in-2 {
+    animation: drop-in 1200ms ease 500ms backwards;
+   }
+   
+   @keyframes drop-in {
+    from {
+     opacity: 0;
+     transform: translateY(-100px);
+    }
+    to {
+     opacity: 1;
+     transform: translate(0px);
+    }
+   }

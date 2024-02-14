@@ -1,0 +1,30 @@
+*{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+    }
+    body{
+        scroll-behavior: smooth;
+    }
+    .signup-container{
+        background :linear-gradient(to bottom right, #dcdcdd, rgb(230, 229, 229));
+    }
+    .sub-signup{
+        background: url(../images/signup-background-image.jpg);
+        background-repeat: no-repeat;
+        background-size: 135%;
+    }
+    
+   .drop-in-2 {
+    animation: drop-in 1200ms ease 500ms backwards;
+   }
+   
+   @keyframes drop-in {
+    from {
+     opacity: 0;
+     transform: translateY(-100px);
+    }
+    to {
+     opacity: 1;
+     transform: translate(0px);
+    }
+   }
