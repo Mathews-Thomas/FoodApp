@@ -1,32 +1,34 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-function Navbar({size}) {
+import { Navbar, Nav, Button } from 'react-bootstrap';
+function Navbarmain({size}) {
   return (
-    <div>
-        <nav className="navbar navbar-light">
-  <a className="navbar-brand text-danger font-weight-bold font-italic" href="">
-    FOOD APP
-  </a>
-  <div>
-    <Link to="/login">
-      {" "}
-      <button
-        className="btn btn-outline-success rounded-pill mr-2 border-0"
-        type="submit"
-      >
-        LOGIN
-      </button>
-    </Link>
-    <a href=''>
-      <button className="btn btn-outline-danger rounded-pill" type="submit">
-        CART
-         <span>{size}</span></button>
-    </a >
-  </div>
-</nav>
+    <Navbar expand="lg" bg="light" variant="light">
+    <Navbar.Brand className="text-danger font-weight-bold font-italic" href="/">
+      Foodie Express
+    </Navbar.Brand>
 
-    </div>
+    <Navbar.Toggle aria-controls="navbarNav" />
+
+    <Navbar.Collapse id="navbarNav">
+      <Nav className="ml-auto">
+        <Link to="/login" className="nav-link">
+          <Button variant="outline-success" className="rounded-pill mr-2 border-0">
+            Login
+          </Button>
+        </Link>
+
+        <Link to="/signup" className="nav-link">
+          <Button variant="outline-danger" className="rounded-pill">
+            Sign up
+            <span className="">{size}</span>
+          </Button>
+        </Link>
+      </Nav>
+    </Navbar.Collapse>
+  </Navbar>
+
   )
 }
 
-export default Navbar
+export default Navbarmain

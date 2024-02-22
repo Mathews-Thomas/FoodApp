@@ -1,8 +1,8 @@
 const express = require('express')
 const bcrypt =require('bcrypt')
-const User = require('../Models/User')
+const User =require('../Models/User.js')
 const router = express.Router()
-// ************************************foodapp usercreation for login************************************************
+// ************************************foodapp usercreation for registration************************************************
 router.post('/register', async  (req, res) =>{
     try { 
   const {username,password ,email}= req.body

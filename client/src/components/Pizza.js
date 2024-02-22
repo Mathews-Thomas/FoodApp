@@ -11,7 +11,7 @@ function Pizza({pizza}) {
     console.log(pizza)
   }
   return (
-    <div className='mt-5 pt-5'>
+    <div className='mt-5 pt-5 shadow-lg'>
         <h2>{pizza.name}</h2>
     <img src={pizza.image} style={{width: "80%",height:"170px",cursor:"pointer"}} className='rounded' alt='foodimage' onClick={handleShow} ></img>
     <div className='d-flex flex-wrap justify-content-between pl-4 pr-4'>

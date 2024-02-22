@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import Logincss from "../pages/Login.css"
+import '../pages/Login.css'
 import fblogo from "../images/facebook (1).png"
 import googlelogo from "../images/search (1).png"
 import twitterlogo from "../images/twitter (2).png"
@@ -16,49 +16,55 @@ function Login() {
   const passwordref=useRef()
   const[emailerror,setemailerror]=useState()
   const[passworderror,setpassworderror]=useState()
+  const[loginmessage,setloginmessage] =useState()
 // *************************validationform********************
 
-const validateform =()=>{
-let validfrom= true;
+const validateForm = () => {
+  let formIsValid = true;
+  // Validate email
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailref.current.value)) {
+    setemailerror("Invalid email address");
+    formIsValid = false;
+  }
 
-// validateemail
-if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailref.current.value))
-{
-setemailerror('Invalid email address')
-validfrom =false;
-}
-// validatepassword
-if (passwordref.current.value.length < 6) {
-  setpassworderror('Password must be at least 6 characters long')
-  validfrom= false;
-}
-if(validfrom)
-{
-    //**************** */ axios connecting***************************
-  axios.post('http://localhost:3001/login',{email,password}).then((responce)=>{
-    console.log(responce) 
-    if(responce.data==="success"){
-      alert('login success')
-      Navigate("/")
-    }
-   else if (responce.data==="the password is incorrect") {
-    alert("password is incorrect")
-    
-   } else {
-    alert('email not found')
-   }
-  }).catch((err)=>{
-    console.log(err)
-  })
-}
-}
+  // Validate password
+  if (passwordref.current.value.length < 6) {
+    setpassworderror("Password must be at least 6 characters long");
+    formIsValid = false;
+  }
 
-// **************************form submiting**************************************
-const handlesubmit =(e)=>{
-  e.preventDefault() 
-  validateform()
-  
-}
+  if (formIsValid) {
+    // Submit the form or perform other actions
+   
+    axios
+      .post("http://localhost:3001/login", { password, email })
+      .then((responce) => {
+        if(responce.data.status) 
+        {
+          setloginmessage(responce.data.message);
+          setpassworderror("");
+          setemailerror("");
+          setTimeout(() => {
+            Navigate("/loginhome");
+          }, 2000); 
+        }
+       else{
+        setloginmessage(responce.data.message )
+       }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    console.log("form error");
+  }
+};
+
+const handlesubmit = (e) => {
+  e.preventDefault();
+  validateForm();
+};
+
   return (
     <div>
       <div className="container-fluid m-0 p-0 login-container p-5">
@@ -90,9 +96,9 @@ const handlesubmit =(e)=>{
               </div>
               <div style={{color:'red',fontSize:'15px'}}>{passworderror}</div>
               <div className="pt-3 pb-3">
-                <a className="text-muted" href="">
+                <Link className="text-muted" to="/forgotpassword">
                   Forgot Password ?
-                </a>
+                </Link>
                 <div className="mt-2"><Link to ="/signup" className="text-muted">New user? Register here</Link></div>
               </div>
               <div className="pb-3">
@@ -100,6 +106,7 @@ const handlesubmit =(e)=>{
                   LOGIN
                 </button>
               </div>
+              <div style={{color:'green',fontSize:'15px'}}>{loginmessage}</div>
               </form>
               <div className="pt-2 pb-3 text-muted">Login with</div>
               <div className="d-flex justify-content-center">
