@@ -9,14 +9,15 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
 function Login() {
-  const[email,setemail] =useState()
-  const[password,setpassword] = useState()
+  const[email,setemail] =useState('')
+  const[password,setpassword] = useState('')
   const Navigate =useNavigate()
   const emailref =useRef()
   const passwordref=useRef()
   const[emailerror,setemailerror]=useState()
-  const[passworderror,setpassworderror]=useState()
-  const[loginmessage,setloginmessage] =useState()
+  const[passworderror,setpassworderror]=useState('')
+  const[loginmessage,setloginmessage] =useState('')
+  const[loginfail,setloginfail] =useState('')
 // *************************validationform********************
 
 const validateForm = () => {
@@ -44,12 +45,15 @@ const validateForm = () => {
           setloginmessage(responce.data.message);
           setpassworderror("");
           setemailerror("");
+          setloginfail('')
           setTimeout(() => {
             Navigate("/loginhome");
           }, 2000); 
         }
        else{
-        setloginmessage(responce.data.message )
+        setloginfail(responce.data.message )
+        setpassworderror("");
+          setemailerror("");
        }
       })
       .catch((err) => {
@@ -107,6 +111,7 @@ const handlesubmit = (e) => {
                 </button>
               </div>
               <div style={{color:'green',fontSize:'15px'}}>{loginmessage}</div>
+              <div style={{color:'red',fontSize:'15px'}}>{loginfail}</div>
               </form>
               <div className="pt-2 pb-3 text-muted">Login with</div>
               <div className="d-flex justify-content-center">

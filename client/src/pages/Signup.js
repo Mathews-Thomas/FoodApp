@@ -43,19 +43,25 @@ function Signup() {
     }
 
     if (formIsValid) {
-      // Submit the form or perform other actions
-      setformvalid("Account Created Successfully!");
+  
       axios
         .post("http://localhost:3001/register", { username, password, email })
         .then((responce) => {
-          console.log(responce.data);
+         if(responce.data.status)
+         {
+// Submit the form or perform other actions
+setformvalid(responce.data.message);
+setTimeout(() => {
+  Navigate("/login");
+}, 2000);
+         }
+         else{
+          setformvalid(responce.data.message);
+         }
         })
         .catch((err) => {
           console.log(err);
         });
-      setTimeout(() => {
-        Navigate("/login");
-      }, 2000);
     } else {
       console.log("form error");
     }

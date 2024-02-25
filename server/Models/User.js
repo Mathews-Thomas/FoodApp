@@ -15,7 +15,7 @@ email :{
     type: String,
     required:true,
     unique :true
-}
+}  
     }
 )
 module.exports = mongoose.model('foodUser',userSchema)

@@ -30,6 +30,9 @@ const validateForm = () => {
         {
           setemailsuccess(responce.data.message);
           setemailerror("")
+          setTimeout(() => {
+            Navigate("/resetpassword");
+          }, 9000);
         }
         else{
           setemailerror(responce.data.message)
@@ -38,9 +41,6 @@ const validateForm = () => {
       .catch((err) => {
         console.log(err);
       });
-    setTimeout(() => {
-      Navigate("/resetpassword");
-    }, 9000);
   } else {
     console.log("form error");
   }
@@ -70,7 +70,7 @@ return (
               <div style={{color:'red',fontSize:'15px'}}>{emailerror}</div>
               <div className="pb-3">
                 <button className="btn btn-danger  btn-block font-weight-bold rounded"type="submit">
-                  Sent Email
+                  Sent OTP
                 </button>
               </div>
               </form>

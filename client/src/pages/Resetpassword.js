@@ -5,7 +5,7 @@ import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 
 function Resetpassword() {
-  const [password,setpassword]=useState('')
+  const [newpassword,setnewpassword]=useState('')
   const[email,setemail]=useState('')
   const[otp,setotp]=useState('')
   const Navigate =useNavigate()
@@ -16,6 +16,7 @@ function Resetpassword() {
   const[emailerror,setemailerror]=useState('')
   const[otperror,setotperror]=useState('')
   const[resetsuccess,setresetsuccess]=useState('')
+  const[resetfail,setresetfail]=useState('')
 // *************************validationform********************
 const validateForm = () => {
   let formIsValid = true;
@@ -40,23 +41,27 @@ const validateForm = () => {
     // Submit the form or perform other actions
     
     axios
-      .post(`http://localhost:3001/resetpassword`, { password ,otp,email })
+      .post(`http://localhost:3001/resetpassword`, { newpassword ,otp,email })
       .then((responce) => {
        if(responce.data.status)
        {
         console.log(responce);
         setresetsuccess(responce.data.message);
-       }
+        setemailerror('')
+        setotperror('')
+        setpassworderror('')
+        setTimeout(() => {
+          Navigate("/login");
+        }, 2000);
+       } 
        else{
-        setresetsuccess(responce.data.message);
+        setresetfail(responce.data.message);
        }
       })
       .catch((err) => {
         console.log(err);
       });
-    // setTimeout(() => {
-    //   Navigate("/login");
-    // }, 2000);
+
   } else {
     console.log("form error");
   }
@@ -97,11 +102,12 @@ return (
                   type="password"
                   placeholder="Enter New Password"
                   className="form-control rounded" ref ={passwordRef}
-                  width="100%" onChange={(e)=> setpassword(e.target.value)}
+                  width="100%" onChange={(e)=> setnewpassword(e.target.value)}
                 />
               </div>
               <div style={{color:'red',fontSize:'15px'}}>{passworderror}</div>
               <div style={{color:'green',fontSize:'15px'}}>{resetsuccess}</div>
+              <div style={{color:'red',fontSize:'15px'}}>{resetfail}</div>
               <div className="pb-3 pt-3">
                 <button className="btn btn-danger  btn-block font-weight-bold rounded"type="submit">
                   Reset Password
