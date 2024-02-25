@@ -71,7 +71,7 @@ const validateForm = () => {
     // Submit the form or perform other actions
     
     axios
-      .post(`http://localhost:3001/resetpassword`, { newpassword ,otp,email })
+      .post(`https://food-app-beta-five.vercel.app/resetpassword`, { newpassword ,otp,email })
       .then((responce) => {
        if(responce.data.status)
        {
