@@ -32,7 +32,7 @@ const validateForm = () => {
   if (formIsValid) {
     // Submit the form or perform other actions
     axios
-      .post("http://localhost:3001/forgotpassword", { email })
+      .post("https:/food-app-beta-five.vercel.app/forgotpassword", { email })
       .then((responce) => {
         console.log(responce);
         if(responce.data.status)
