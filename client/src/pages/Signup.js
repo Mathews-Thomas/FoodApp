@@ -72,7 +72,7 @@ function Signup() {
     if (formIsValid) {
   
       axios
-        .post("http://localhost:3001/register", { username, password, email })
+        .post("https://food-app-beta-five.vercel.app/register", { username, password, email })
         .then((responce) => {
          if(responce.data.status)
          {
