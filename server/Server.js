@@ -22,18 +22,18 @@ app.post('/login',async(req, res)=>{
         const user = await User.findOne({email})
         if(!user)
         {
-         return res.json({status: false, message:'Invalid User'})
+         return res.json({status: false, message:'Invalid user'})
         }
         const passwordMatch =await bcrypt.compare(password,user.password)
         if(!passwordMatch)
         {
-         return res.json({status: false, message:'Invalid Password'})
+         return res.json({status: false, message:'Invalid password'})
         }
        const token = jwt.sign({userId:user._id}, "secretKey",{expiresIn:"1h"});
-        res.json({status: true, message: 'Login Successfully' , token : token})
+        res.json({status: true, message: 'Login Success' , token : token})
      } catch (error) {
          console.log(error)
-         res.status(500).json('Internal Server Error')
+         res.json('Internal Server Error')
      }
 
 })
@@ -41,22 +41,25 @@ app.post('/login',async(req, res)=>{
 // user registration
 app.post('/register',async(req,res)=>{
   try {
-    const { username, password, email } = req.body;
+    const { username, password, email ,role} = req.body;
 
     // Check if the email is already registered
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-        return res.status(400).json({ status: false, message: 'Email is already registered' });
+        return res.json({ status: false, message: 'Email is already registered' });
     }
-
+else if(role== User.role)
+{
+    return res.json({ status: true, message: 'Admin Registration successful' });
+}
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ username, password: hashedPassword, email });
     await user.save();
 
-    return res.status(201).json({ status: true, message: 'Registration Successful' });
+    return res.json({ status: true, message: 'Registration successful' });
 } catch (error) {
     console.error(error);
-    return res.status(500).json({ status: false, message: 'Internal Server Error' });
+    return res.json({ status: false, message: 'Internal Server Error' });
 }
 })
 
@@ -68,7 +71,7 @@ app.post('/forgotpassword', async (req, res) => {
       const user = await User.findOne({ email });
 
       if (!user) {
-          return res.json({ status: false, message: 'User Not Registered' });
+          return res.json({ status: false, message: 'User not registered' });
       }
 
       // Generate a random OTP
@@ -99,7 +102,7 @@ app.post('/forgotpassword', async (req, res) => {
           if (error) {
               return res.json({ status: false, message: 'Error sending email' });
           } else {
-              return res.json({ status: true, message: `OTP has been sent to ${email} successfully ,please check your mail` });
+              return res.json({ status: true, message: `OTP has been sent to ${email} successfully` });
           }
       });
   } catch (error) {
@@ -116,7 +119,7 @@ app.post('/resetpassword', async (req, res) => {
       const user = await User.findOne({ email });
 
       if (!user) {
-          return res.json({ status: false, message: 'User Not Registered' });
+          return res.json({ status: false, message: 'User not registered' });
       }
 
       // Retrieve stored OTP for the user
@@ -133,7 +136,7 @@ app.post('/resetpassword', async (req, res) => {
       const hashedPassword = await bcrypt.hash(newpassword, 10);
       await User.findByIdAndUpdate({ _id: user._id }, { password: hashedPassword });
 
-      return res.json({ status: true, message: 'Password Updated Successfully' });
+      return res.json({ status: true, message: 'Password updated successfully' });
   } catch (error) {
       console.error(error);
       return res.json({ status: false, message: 'Error in reset password' });

@@ -4,20 +4,29 @@ import Forgotcss from '../pages/Forgotpassword.css'
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
-
+import Navbar from '../components/Navbar'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Forgotpassword() {
   const[email,setemail] =useState('')
   const Navigate =useNavigate()
   const emailref =useRef('')
-  const[emailerror,setemailerror]=useState('')
-  const[emailsuccess,setemailsuccess]=useState('')
 // *************************validationform********************
 const validateForm = () => {
   let formIsValid = true;
 
   // Validate email
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailref.current.value)) {
-    setemailerror("Invalid email address");
+   toast.warning("Invalid email address",{
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored"
+    })
     formIsValid = false;
   }
   if (formIsValid) {
@@ -28,14 +37,31 @@ const validateForm = () => {
         console.log(responce);
         if(responce.data.status)
         {
-          setemailsuccess(responce.data.message);
-          setemailerror("")
+        toast.success(responce.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored"
+          })
           setTimeout(() => {
             Navigate("/resetpassword");
           }, 9000);
         }
         else{
-          setemailerror(responce.data.message)
+          toast.error(responce.data.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored"
+            })
         }
       })
       .catch((err) => {
@@ -53,12 +79,13 @@ const handlesubmit = (e) => {
 return (
     <div>
       <div className="container-fluid m-0 p-0 login-container p-5">
-        <div className="container sub-forgot p-5 text-center rounded">
-          <div className="sub-login-container   rounded drop-in-2">
-            <h1 className="font-weight-bold pb-5">Forgot Password ?</h1>
-            <div className="login-form-container  p-5 ">
+        <div className="container p-5 text-center">
+        <Navbar/>
+          <div className="sub-login-container   rounded drop-in-2 shadow-lg bg-light">
+            <h1 className="font-weight-bold pt-5">Forgot Password ?</h1>
+            <div className="login-form-container p-5 shadow-lg rounded">
               <form onSubmit={handlesubmit}>
-              <div className="pt-4 pb-2">
+              <div className=" pb-2">
                 <input
                   type="text"
                   placeholder="Enter Email Address"
@@ -66,8 +93,6 @@ return (
                   width="100%" onChange={(e)=> setemail(e.target.value)}
                 />
               </div>
-              <div style={{color:'green',fontSize:'15px'}}>{emailsuccess}</div>
-              <div style={{color:'red',fontSize:'15px'}}>{emailerror}</div>
               <div className="pb-3">
                 <button className="btn btn-danger  btn-block font-weight-bold rounded"type="submit">
                   Sent OTP
@@ -80,7 +105,7 @@ return (
         </div>
         <Footer/>
       </div>
-      
+      <ToastContainer/>
     </div>
   );
 }

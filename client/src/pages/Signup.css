@@ -6,7 +6,8 @@
         scroll-behavior: smooth;
     }
     .signup-container{
-        background :linear-gradient(to bottom right, #dcdcdd, rgb(230, 229, 229));
+        background: linear-gradient(to bottom right, rgb(245, 245, 245), rgb(230, 230, 230));
+        
     }
     .sub-signup{
         background: url(../images/signup-background-image.jpg);
@@ -30,9 +31,10 @@
    }
    @media only screen and (max-width: 767px) {
     .sub-signup{
-        background: url(../images/signup-background-image.jpg);
-        background-repeat: no-repeat;
-        background-size: 100%;
+        background: linear-gradient(to bottom right, rgb(245, 245, 245), rgb(230, 230, 230));
+    }
+    .signup-container{
+        padding: 0 !important;
     }
    
    }

@@ -8,14 +8,16 @@ body{
 
 .home-container{
     background: url(../images/delicious-spanish-rice-paella-pan-white-background-with-copy-space.jpg);
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
 } 
 .main-text{
     font-size: 100px;
 } 
-.home-container-main{
-    background :linear-gradient(to bottom right, #dcdcdd, rgb(230, 229, 229));
+.home-container-mains{
+    background: linear-gradient(to bottom right, rgb(245, 245, 245), rgb(230, 230, 230));
+     
+
 }
 
    .drop-in-2 {
@@ -42,4 +44,9 @@ body{
         background-size: cover;
         background-repeat: no-repeat;
     } 
+    .home-container-mains{
+        background-color:  aliceblue;
+        padding: 0 !important;
+    
+    }
    }

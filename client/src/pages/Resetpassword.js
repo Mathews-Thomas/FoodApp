@@ -3,6 +3,9 @@ import Footer from "../components/Footer"
 import './Resetpassword.css'
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Resetpassword() {
   const [newpassword,setnewpassword]=useState('')
@@ -23,17 +26,44 @@ const validateForm = () => {
 
    // Validate email
    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailRef.current.value)) {
-    setemailerror("Invalid email address");
+    toast.warning("Invalid email address",{
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+      })
     formIsValid = false;
   }
  // Validate password
  if (passwordRef.current.value.length < 6) {
-    setpassworderror("Password must be at least 6 characters long");
+    toast.warning("Password must be at least 6 characters long",{
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+      })
     formIsValid = false;
   }
    // Validate otp
    if (otpRef.current.value.length < 6) {
-    setotperror("Invalid OTP");
+    toast.warning("Invalid OTP",{
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+      })
     formIsValid = false;
   }
   
@@ -45,17 +75,31 @@ const validateForm = () => {
       .then((responce) => {
        if(responce.data.status)
        {
-        console.log(responce);
-        setresetsuccess(responce.data.message);
-        setemailerror('')
-        setotperror('')
-        setpassworderror('')
+       toast.success(responce.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored"
+        })
         setTimeout(() => {
           Navigate("/login");
         }, 2000);
        } 
        else{
-        setresetfail(responce.data.message);
+       toast.error(responce.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored"
+        })
        }
       })
       .catch((err) => {
@@ -73,13 +117,14 @@ const handlesubmit = (e) => {
 };
 return (
     <div>
-      <div className="container-fluid m-0 p-0 login-container p-5">
+      <div className="container-fluid m-0 login-container p-5">
         <div className="container sub-forgot p-5 text-center rounded">
-          <div className="sub-login-container   rounded drop-in-2">
-            <h1 className="font-weight-bold pb-5">Reset Password</h1>
-            <div className="login-form-container  p-5 ">
+          <Navbar/>
+          <div className="sub-login-container  shadow-lg rounded drop-in-2 bg-light">
+            <h1 className="font-weight-bold pt-3">Reset Password ?</h1>
+            <div className="login-form-container  p-5 shadow-lg rounded">
               <form onSubmit={handlesubmit}>
-              <div className="pt-4 pb-2">
+              <div className="pt-2 pb-2">
                 <input
                   type="email"
                   placeholder="Enter Your Email"
@@ -87,8 +132,7 @@ return (
                   width="100%" onChange={(e)=> setemail(e.target.value)}
                 />
               </div>
-              <div style={{color:'red',fontSize:'15px'}}>{emailerror}</div>
-              <div className="pt-4 pb-2">
+              <div className="pt-2 pb-2">
                 <input
                   type="text"
                   placeholder="Please Enter OTP"
@@ -96,8 +140,7 @@ return (
                   width="100%" onChange={(e)=> setotp(e.target.value)}
                 />
               </div>
-              <div style={{color:'red',fontSize:'15px'}}>{otperror}</div>
-              <div className="pt-4 pb-2">
+              <div className="pt-2 pb-2">
                 <input
                   type="password"
                   placeholder="Enter New Password"
@@ -105,9 +148,6 @@ return (
                   width="100%" onChange={(e)=> setnewpassword(e.target.value)}
                 />
               </div>
-              <div style={{color:'red',fontSize:'15px'}}>{passworderror}</div>
-              <div style={{color:'green',fontSize:'15px'}}>{resetsuccess}</div>
-              <div style={{color:'red',fontSize:'15px'}}>{resetfail}</div>
               <div className="pb-3 pt-3">
                 <button className="btn btn-danger  btn-block font-weight-bold rounded"type="submit">
                   Reset Password
@@ -120,7 +160,7 @@ return (
         </div>
         <Footer/>
       </div>
-      
+      <ToastContainer/>
     </div>
   );
 }

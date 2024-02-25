@@ -7,12 +7,13 @@
     }
     
     .login-container{
-        background :linear-gradient(to bottom right, #dcdcdd, rgb(230, 229, 229));
+        background: linear-gradient(to bottom right, rgb(245, 245, 245), rgb(230, 230, 230));
+        
+
     }
     .sub-login{
-        background-image: url(../images//top-view-salad-with-tomatoes-fried-egg-with-blank-notepad.jpg);
-        background-repeat: no-repeat;
-        background-size: contain;
+       background-color: white;
+       
     }
     .sub-login-container{
         max-width: 450px;
@@ -36,14 +37,9 @@
    }
    @media only screen and (max-width: 767px) {
     .sub-login{
-        background-image: url(../images//top-view-salad-with-tomatoes-fried-egg-with-blank-notepad.jpg);
-        background-repeat: no-repeat;
-        background-size: contain;
-        padding: 0 !important;
+        
     }
     .sub-login-container{
-        max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
+        
     }
    }

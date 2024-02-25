@@ -10,12 +10,12 @@ const [search,setsearch] =useState('')
   return (
     <div>
 
-<div className="container-fluid  m-0 p-5 home-container-main">
-  <div className="container  home-container rounded drop-in-2">
-    <Navbar/>
-    <div className="row">
-      <div className="col-lg-12 ">
-        <div className=" text-center ">
+<div className="container-fluid  m-0 p-5 home-container-mains ">
+<Navbar/>
+  <div className="container rounded drop-in-2">
+    <div className="row mt-5 mb-5">
+      <div className="col-lg-12">
+        <div className=" text-center home-container p-5 rounded">
           <h1 className="font-weight-bold main-text">Health Requires</h1>
           <h1 className="font-weight-bold main-text">Healthy food</h1>
           <h4>Manage your recipes the easy way</h4>
@@ -35,7 +35,7 @@ const [search,setsearch] =useState('')
             ADD RECIPES 
           </button>
         </div>
-        <div className='row mt-5 pt-5'>
+        <div className='row'>
          { pizzas.filter((pizza)=>{
           return search.toLowerCase() === '' ? pizza : pizza.name.toLowerCase().includes(search)
          }).map(pizza=>{

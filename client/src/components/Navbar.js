@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 function Navbarmain({size}) {
   return (
-    <Navbar expand="lg" bg="light" variant="light">
+    <Navbar expand="lg"  variant="light" className='fixed-top' bg='light'>
     <Navbar.Brand className="text-danger font-weight-bold font-italic" href="/">
       Foodie Express
     </Navbar.Brand>

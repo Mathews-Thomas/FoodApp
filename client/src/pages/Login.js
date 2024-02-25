@@ -7,30 +7,46 @@ import Footer from "../components/Footer"
 import axios, { Axios } from "axios"
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
-
+import Navbar from '../components/Navbar'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Login() {
   const[email,setemail] =useState('')
   const[password,setpassword] = useState('')
   const Navigate =useNavigate()
   const emailref =useRef()
   const passwordref=useRef()
-  const[emailerror,setemailerror]=useState()
-  const[passworderror,setpassworderror]=useState('')
-  const[loginmessage,setloginmessage] =useState('')
-  const[loginfail,setloginfail] =useState('')
 // *************************validationform********************
 
 const validateForm = () => {
   let formIsValid = true;
   // Validate email
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailref.current.value)) {
-    setemailerror("Invalid email address");
+    toast.warning("Invalid email address",{
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+      });
     formIsValid = false;
   }
 
   // Validate password
   if (passwordref.current.value.length < 6) {
-    setpassworderror("Password must be at least 6 characters long");
+    toast.warning("Password must be at least 6 characters long",{
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+      })
     formIsValid = false;
   }
 
@@ -42,18 +58,31 @@ const validateForm = () => {
       .then((responce) => {
         if(responce.data.status) 
         {
-          setloginmessage(responce.data.message);
-          setpassworderror("");
-          setemailerror("");
-          setloginfail('')
+          toast.success(responce.data.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored"
+            })
           setTimeout(() => {
             Navigate("/loginhome");
           }, 2000); 
         }
        else{
-        setloginfail(responce.data.message )
-        setpassworderror("");
-          setemailerror("");
+      toast.error(responce.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored"
+        })
        }
       })
       .catch((err) => {
@@ -72,14 +101,15 @@ const handlesubmit = (e) => {
   return (
     <div>
       <div className="container-fluid m-0 p-0 login-container p-5">
-        <div className="container sub-login p-5 text-center rounded">
-          <div className="sub-login-container   rounded drop-in-2">
-            <h1 className="font-weight-bold pb-5">Login</h1>
-            <p className="text-muted pt-5">
+        <div className="container  p-5 text-center ">
+        <Navbar/>
+          <div className="sub-login-container rounded drop-in-2 shadow-lg sub-login ">
+            <h1 className="font-weight-bold pt-3">Login</h1>
+            <p className="text-muted pt-1">
               More than <span className="text-danger">15,000 recipes</span> from
               around the world!
             </p>
-            <div className="login-form-container  p-5 ">
+            <div className="login-form-container p-3 shadow-lg">
               <form onSubmit={handlesubmit}>
               <div className="pt-4 pb-2">
                 <input
@@ -89,7 +119,6 @@ const handlesubmit = (e) => {
                   width="100%" onChange={(e)=> setemail(e.target.value)}
                 />
               </div>
-              <div style={{color:'red',fontSize:'15px'}}>{emailerror}</div>
               <div>
                 {" "}
                 <input
@@ -98,7 +127,6 @@ const handlesubmit = (e) => {
                   className="form-control rounded" onChange={(e)=> setpassword(e.target.value)}
                 />
               </div>
-              <div style={{color:'red',fontSize:'15px'}}>{passworderror}</div>
               <div className="pt-3 pb-3">
                 <Link className="text-muted" to="/forgotpassword">
                   Forgot Password ?
@@ -110,8 +138,6 @@ const handlesubmit = (e) => {
                   LOGIN
                 </button>
               </div>
-              <div style={{color:'green',fontSize:'15px'}}>{loginmessage}</div>
-              <div style={{color:'red',fontSize:'15px'}}>{loginfail}</div>
               </form>
               <div className="pt-2 pb-3 text-muted">Login with</div>
               <div className="d-flex justify-content-center">
@@ -137,7 +163,7 @@ const handlesubmit = (e) => {
         </div>
         <Footer/>
       </div>
-      
+      <ToastContainer />
     </div>
   );
 }

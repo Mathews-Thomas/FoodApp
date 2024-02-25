@@ -8,6 +8,9 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
+import Navbar from '../components/Navbar'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Signup() {
   const [username, setusername] = useState("");
   const [email, setemail] = useState("");
@@ -16,29 +19,53 @@ function Signup() {
   const usernameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
-  const [nameerror, setnameerror] = useState();
-  const [emailerror, setemailerror] = useState();
-  const [passworderror, setpassworderror] = useState();
-  const [formvalid, setformvalid] = useState();
+  
 
   const validateForm = () => {
     let formIsValid = true;
 
     // Validate username
     if (usernameRef.current.value.length < 3) {
-      setnameerror("Username must be at least 3 characters long");
+      toast.warning('Username must be at least 3 characters long',{
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored"
+        })
       formIsValid = false;
     }
 
     // Validate email
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailRef.current.value)) {
-      setemailerror("Invalid email address");
+      toast.warning('Invalid email address',{
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored"
+        })
       formIsValid = false;
     }
 
     // Validate password
     if (passwordRef.current.value.length < 6) {
-      setpassworderror("Password must be at least 6 characters long");
+      toast.warning('Password must be at least 6 characters long',{
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored"
+        })
       formIsValid = false;
     }
 
@@ -49,14 +76,31 @@ function Signup() {
         .then((responce) => {
          if(responce.data.status)
          {
-// Submit the form or perform other actions
-setformvalid(responce.data.message);
+toast.success(responce.data.message, {
+  position: "top-right",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored"
+  })
 setTimeout(() => {
   Navigate("/login");
 }, 2000);
          }
          else{
-          setformvalid(responce.data.message);
+          toast.error(responce.data.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored"
+            })
          }
         })
         .catch((err) => {
@@ -73,11 +117,12 @@ setTimeout(() => {
   };
   return (
     <div>
-      <div className="container-fluid m-0 p-0 signup-container p-5">
+      <div className="container-fluid m-0 signup-container p-5">
+      <Navbar/>
         <div className="container sub-signup  text-center d-flex flex-wrap rounded">
           <div className="row">
-            <div className="col-lg-6 p-4 bg-white">
-              <div className="login-form-container rounded drop-in-2">
+            <div className="col-lg-6 p-5 ">
+              <div className="login-form-container rounded drop-in-2 p-5 shadow-lg bg-light">
                 <h1>Sign up</h1>
                 <form onSubmit={handlesubmit}>
                   <div className="pt-4 pb-3">
@@ -89,9 +134,6 @@ setTimeout(() => {
                       ref={usernameRef}
                       onChange={(e) => setusername(e.target.value)}
                     />
-                    <div style={{ color: "red", fontSize: "15px" }}>
-                      {nameerror}
-                    </div>
                   </div>
                   <div className="pb-3">
                     {" "}
@@ -102,9 +144,6 @@ setTimeout(() => {
                       ref={emailRef}
                       onChange={(e) => setemail(e.target.value)}
                     />
-                    <div style={{ color: "red", fontSize: "15px" }}>
-                      {emailerror}
-                    </div>
                   </div>
                   <div>
                     {" "}
@@ -115,9 +154,6 @@ setTimeout(() => {
                       ref={passwordRef}
                       onChange={(e) => setpassword(e.target.value)}
                     />
-                    <div style={{ color: "red", fontSize: "15px" }}>
-                      {passworderror}
-                    </div>
                   </div>
                   <div className="pb-3 pt-3">
                     <button
@@ -126,9 +162,6 @@ setTimeout(() => {
                     >
                       SIGNUP
                     </button>
-                  </div>
-                  <div style={{ color: "green", fontSize: "15px" }}>
-                    {formvalid}
                   </div>
                 </form>
                 <div className="pt-2 pb-3 text-muted">Login with</div>
@@ -180,6 +213,7 @@ setTimeout(() => {
         </div>
         <Footer />
       </div>
+      <ToastContainer />
     </div>
   );
 }

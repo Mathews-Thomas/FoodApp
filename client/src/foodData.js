@@ -25,9 +25,9 @@ const foods =[{
         ],
         prices:[
         {
-        small:200,
-        medium:350,
-        large:400
+        small:60,
+        medium:120,
+        large:220
         }],
         category:"veg",
         image:"https://static.toiimg.com/thumb/54289752.cms?imgsize=495844&width=800&height=800",
