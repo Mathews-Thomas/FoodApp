@@ -54,7 +54,7 @@ const validateForm = () => {
     // Submit the form or perform other actions
    
     axios
-      .post("http://localhost:3001/login", { password, email })
+      .post("https://food-app-beta-five.vercel.app/login", { password, email })
       .then((responce) => {
         if(responce.data.status) 
         {
